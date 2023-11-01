@@ -11,9 +11,9 @@ pipeline {
                     url: "https://github.com/Souhajaidi1/DevOps";
             }
         }
-        stage('build') { 
+        stage('Build') { 
             steps {
-                sh 'npm run build'
+                sh 'mvn clean compile'
             }
         }
 
