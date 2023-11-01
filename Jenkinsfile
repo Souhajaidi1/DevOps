@@ -11,11 +11,9 @@ pipeline {
                     url: "https://github.com/Souhajaidi1/DevOps";
             }
         }
-
-        stage("Build") {
+        stage('build') { 
             steps {
-                sh "mvn -version"
-                bat "mvn clean package -DskipTests"
+                sh 'npm run build'
             }
         }
 
