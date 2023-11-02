@@ -12,6 +12,14 @@ pipeline {
                sh 'mvn clean compile'
                }
              }
+         stage('Setup MySQL Connection'){
+           steps{
+             script{
+                 sh 'mysql -h 172.18.0.2 -u root -e "USE SkiStationDB;"
+              }
+            }
+           }
+
          stage("Sonar"){
           steps {
                 bat "mvn sonar:sonar"
