@@ -20,12 +20,12 @@ pipeline {
 
 
         stage('Setup MySQL Connection') {
-    		steps {
-        		script {
-            			// Use MySQL client to connect to the running MySQL container
-            			sh 'mysql -h 172.18.0.2 -u root -e "USE SkiStationDB;"'
-        		}
-    		}
+		steps {
+			script {
+			// Use MySQL client to connect to the running MySQL container
+			sh 'mysql -h 172.18.0.2 -u root -e "USE SkiStationDB;"'
+			}
+		}
 	}
 
 
@@ -39,6 +39,21 @@ pipeline {
         stage("Build Docker image") {
             steps {
                 sh "docker build -t skistation ."
+            }
+        }
+
+
+	 stage('push in dockerhub') {
+            steps {
+                sh "docker login -u name -p password"
+                sh "docker push HachichaMalak/skistation:1.0.0"
+            }
+        }
+
+
+         stage('run docker compose') {
+            steps {
+                sh "docker compose up "
             }
         }
 
@@ -60,9 +75,9 @@ pipeline {
         stage("Deploy Dokcer Image to private registry") {
             steps {
                 sh "..............."
-            		}
-        	}
-    	}
+			}
+		}
+	}
 
 
     post {
