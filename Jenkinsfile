@@ -14,8 +14,7 @@ pipeline {
        
         stage("Build") {
             steps {
-                sh "mvn -version"
-                bat "mvn clean compile"
+                sh "mvn clean compile"
             }
         }
        
