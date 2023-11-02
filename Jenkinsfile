@@ -28,13 +28,13 @@ pipeline {
 
         stage("Sonar") {
             steps {
-                bat "mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar"
+                sh "mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar"
             }
         }
 
         stage("SRC Analysis Testing") {
             steps {
-                bat "mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar
+                sh "mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar
             }
         }
 
