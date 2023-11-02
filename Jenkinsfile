@@ -4,31 +4,31 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'ski-station', url: 'https://github.com/Souhajaidi1/DevOps'
+                git branch: 'ski_station_project', url: 'https://github.com/Souhajaidi1/DevOps'
             }
         }
         stage ("Build"){
           steps{
-               sh 'mvn clean compile'
+               sh 'mvn clean install'
                }
              }
          stage('Setup MySQL Connection'){
            steps{
              script{
-                 sh 'mysql -h 172.18.0.2 -u root -e "USE SkiStationDB;"
+                 sh 'mysql -h 172.18.0.2 -u root -e "USE SkiStationDB;"'
               }
             }
            }
 
          stage("Sonar"){
           steps {
-                bat "mvn sonar:sonar"
+                sh "mvn sonar:sonar"
             }
         }
 
         stage("SRC Analysis Testing") {
             steps {
-                bat "mvn sonar:sonar"
+                sh "mvn sonar:sonar"
             }
         }
 
