@@ -18,27 +18,15 @@ pipeline {
             }
         }
 
-        stage('Setup MySQL Container') {
-            steps {
-                script {
-                    def mysqlContainer
-
-                    try {
-                        // Run the MySQL container with the desired configuration
-                        mysqlContainer = docker.image('mysql:latest').withRun('-e MYSQL_ALLOW_EMPTY_PASSWORD=true -e MYSQL_DATABASE=SkiStationDB --network devops')
-
-                        // Wait for the MySQL container to start (adjust the timeout as needed)
-                        sh 'docker exec my-mysql-container mysqladmin --silent --wait=30 -hlocalhost -uroot ping || exit 1'
-                    } finally {
-                        // Clean up the MySQL container
-                        if (mysqlContainer) {
-                            mysqlContainer.stop()
-                            mysqlContainer.remove(force: true)
-                        }
-                    }
-                }
-            }
+        stage('Setup MySQL Connection') {
+    steps {
+        script {
+            // Use MySQL client to connect to the running MySQL container
+            sh 'mysql -h 172.18.0.2 -u root -e "USE SkiStationProject;"'
         }
+    }
+}
+
        
         stage("SRC Analysis Testing") {
             steps {
