@@ -4,7 +4,7 @@ pipeline {
 
 
     stages {
-        stage ('GIT') {
+        stage ('Git Checkout') {
             steps {
                echo "Getting Project from Git";
                 git branch: "HachichaMalak",
@@ -12,20 +12,21 @@ pipeline {
             }
         }
 
-        stage("Build") {
+        stage("Build Artifact") {
             steps {
                 sh "mvn clean compile"
             }
         }
 
+
         stage('Setup MySQL Connection') {
-    steps {
-        script {
-            // Use MySQL client to connect to the running MySQL container
-            sh 'mysql -h 172.18.0.2 -u root -e "USE SkiStationDB;"'
-        }
-    }
-}
+    		steps {
+        		script {
+            			// Use MySQL client to connect to the running MySQL container
+            			sh 'mysql -h 172.18.0.2 -u root -e "USE SkiStationDB;"'
+        		}
+    		}
+	}
 
 
         stage("SRC Analysis Testing") {
@@ -33,6 +34,7 @@ pipeline {
                 sh "mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar"
             }
         }
+	
 
         stage("Build Docker image") {
             steps {
@@ -40,18 +42,28 @@ pipeline {
             }
         }
 
+	
+	stage("Unit Testing") {
+            steps {
+                sh "..............."
+            }
+        }
+
+
         stage("Deploy Artifact to private registry") {
             steps {
                 sh "..............."
             }
         }
 
+
         stage("Deploy Dokcer Image to private registry") {
             steps {
                 sh "..............."
-            }
-        }
-    }
+            		}
+        	}
+    	}
+
 
     post {
         always {
