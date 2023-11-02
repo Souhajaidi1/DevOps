@@ -20,7 +20,7 @@ pipeline {
        
         stage("SRC Analysis Testing") {
             steps {
-                bat "mvn sonar:sonar"
+                sh "mvn sonar:sonar"
             }
         }
         
