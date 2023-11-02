@@ -14,9 +14,8 @@ pipeline {
        
         stage("Build") {
             steps {
-                sh "mvn -version"
-                bat "mvn clean package -DskipTests"
-            }
+                sh "mvn clean compile"
+                  }
         }
 
         stage("Sonar") {
