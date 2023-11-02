@@ -11,26 +11,22 @@ pipeline {
                     url: "https://github.com/Souhajaidi1/DevOps";
             }
         }
-        stage('Build') { 
+
+        stage("Build") {
             steps {
-                sh 'mvn clean install'
+                sh "mvn clean install"
             }
         }
 
-	stage('Setup MySQL Connection') {
-    		steps {
-        	script {
+        stage('Setup MySQL Connection') {
+    steps {
+        script {
             // Use MySQL client to connect to the running MySQL container
             sh 'mysql -h 172.18.0.2 -u root -e "USE SkiStationDB;"'
-        	}
-    		}
-	}
-
-        stage("Sonar") {
-            steps {
-                sh "mvn sonar:sonar"
-            }
         }
+    }
+}
+
 
         stage("SRC Analysis Testing") {
             steps {
