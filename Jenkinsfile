@@ -38,7 +38,7 @@ pipeline {
 
         stage("Build Docker image") {
             steps {
-                sh "..............."
+                sh "docker build -t skistation ."
             }
         }
 
