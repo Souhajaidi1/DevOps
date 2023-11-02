@@ -28,13 +28,13 @@ pipeline {
 
         stage("Sonar") {
             steps {
-                sh "mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar"
+                sh "mvn sonar:sonar"
             }
         }
 
         stage("SRC Analysis Testing") {
             steps {
-                sh "mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar"
+                sh "mvn sonar:sonar"
             }
         }
 
