@@ -67,20 +67,6 @@ pipeline {
         }
 
 
-        stage("Deploy Artifact to private registry") {
-            steps {
-                sh "..............."
-            }
-        }
-
-
-        stage("Deploy Dokcer Image to private registry") {
-            steps {
-                sh "..............."
-			}
-		}
-	}
-
 
     post {
         always {
