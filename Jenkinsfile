@@ -21,14 +21,21 @@ pipeline {
         stage('Setup MySQL Container') {
             steps {
                 script {
-                    // Pull the MySQL image from Docker Hub
-                    sh 'sudo docker pull mysql:latest'
-                    
-                    // Run the MySQL container with the desired configuration
-                    sh 'sudo docker run -d --name my-mysql-container --network devops -e MYSQL_ALLOW_EMPTY_PASSWORD=true -e MYSQL_DATABASE=SkiStationDB mysql:latest'
-                    
-                    // Wait for the MySQL container to start (adjust the timeout as needed)
-                    sh 'sudo docker exec my-mysql-container mysqladmin --silent --wait=30 -hlocalhost -uroot ping || exit 1'
+                    def mysqlContainer
+
+                    try {
+                        // Run the MySQL container with the desired configuration
+                        mysqlContainer = docker.image('mysql:latest').withRun('-e MYSQL_ALLOW_EMPTY_PASSWORD=true -e MYSQL_DATABASE=SkiStationDB --network devops')
+
+                        // Wait for the MySQL container to start (adjust the timeout as needed)
+                        sh 'docker exec my-mysql-container mysqladmin --silent --wait=30 -hlocalhost -uroot ping || exit 1'
+                    } finally {
+                        // Clean up the MySQL container
+                        if (mysqlContainer) {
+                            mysqlContainer.stop()
+                            mysqlContainer.remove(force: true)
+                        }
+                    }
                 }
             }
         }
@@ -61,8 +68,6 @@ pipeline {
     post {
         always {
             cleanWs()
-            sh 'sudo docker stop my-mysql-container'
-            sh 'sudo docker rm my-mysql-container'
         }
     }
     
