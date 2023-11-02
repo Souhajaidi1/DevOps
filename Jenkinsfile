@@ -15,16 +15,10 @@ pipeline {
         stage("Build") {
             steps {
                 sh "mvn -version"
-                bat "mvn clean package -DskipTests"
+                bat "mvn clean install verify"
             }
         }
-
-        stage("Sonar") {
-            steps {
-                bat "mvn sonar:sonar"
-            }
-        }
-        
+       
         stage("SRC Analysis Testing") {
             steps {
                 bat "mvn sonar:sonar"
@@ -33,19 +27,19 @@ pipeline {
         
         stage("Build Docker image") {
             steps {
-                sh "..............."
+                //sh "..............."
             }
         }
 
         stage("Deploy Artifact to private registry") {
             steps {
-                sh "..............."
+                //sh "..............."
             }
         }
 
         stage("Deploy Dokcer Image to private registry") {
             steps {
-                sh "..............."
+                //sh "..............."
             }
         }
     }
