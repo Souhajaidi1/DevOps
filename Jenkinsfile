@@ -14,7 +14,7 @@ pipeline {
        
         stage("Build") {
             steps {
-                sh "mvn clean compile"
+                sh "mvn clean install"
             }
         }
 
@@ -22,13 +22,13 @@ pipeline {
             steps {
                 script {
                     // Pull the MySQL image from Docker Hub
-                    sh 'docker pull mysql:latest'
+                    sh 'sudo docker pull mysql:latest'
                     
                     // Run the MySQL container with the desired configuration
-                    sh 'docker run -d --name my-mysql-container --network devops -e MYSQL_ALLOW_EMPTY_PASSWORD=true -e MYSQL_DATABASE=SkiStationDB mysql:latest'
+                    sh 'sudo docker run -d --name my-mysql-container --network devops -e MYSQL_ALLOW_EMPTY_PASSWORD=true -e MYSQL_DATABASE=SkiStationDB mysql:latest'
                     
                     // Wait for the MySQL container to start (adjust the timeout as needed)
-                    sh 'docker exec my-mysql-container mysqladmin --silent --wait=30 -hlocalhost -uroot ping || exit 1'
+                    sh 'sudo docker exec my-mysql-container mysqladmin --silent --wait=30 -hlocalhost -uroot ping || exit 1'
                 }
             }
         }
@@ -61,8 +61,8 @@ pipeline {
     post {
         always {
             cleanWs()
-            sh 'docker stop my-mysql-container'
-            sh 'docker rm my-mysql-container'
+            sh 'sudo docker stop my-mysql-container'
+            sh 'sudo docker rm my-mysql-container'
         }
     }
     
