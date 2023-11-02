@@ -27,19 +27,19 @@ pipeline {
         
         stage("Build Docker image") {
             steps {
-                //sh "..............."
+                sh "..............."
             }
         }
 
         stage("Deploy Artifact to private registry") {
             steps {
-                //sh "..............."
+                sh "..............."
             }
         }
 
         stage("Deploy Dokcer Image to private registry") {
             steps {
-                //sh "..............."
+                sh "..............."
             }
         }
     }
