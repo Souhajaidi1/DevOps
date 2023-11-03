@@ -19,16 +19,6 @@ pipeline {
         }
 
 
-        stage('Setup MySQL Connection') {
-		steps {
-			script {
-			// Use MySQL client to connect to the running MySQL container
-			sh 'mysql -h 172.18.0.2 -u root -e "USE SkiStationDB;"'
-			}
-		}
-	}
-
-
         stage("SRC Analysis Testing") {
             steps {
                 sh "mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar"
