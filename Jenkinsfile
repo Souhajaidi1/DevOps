@@ -10,7 +10,7 @@ pipeline {
                 git branch: "HachichaMalak",
                     url: "https://github.com/Souhajaidi1/DevOps";
             }
-        }
+        } 
 
         stage("Build") {
             steps {
