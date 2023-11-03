@@ -43,23 +43,23 @@ pipeline {
         }
 
 
-	         stage('run docker compose') {
+	stage('push in dockerhub') {
+            steps {
+                sh "docker login -u malakhachicha1998 -p Malak02061998"
+                sh "docker push HachichaMalak/skistation:1.0.0"
+            }
+        }
+
+
+	
+	stage('run docker compose') {
             steps {
                 sh "docker compose up "
             }
         }
 
 	
-	
-	stage('push in dockerhub') {
-            steps {
-                sh "docker login -u name -p password"
-                sh "docker push HachichaMalak/skistation:1.0.0"
-            }
-        }
-
-
-        
+	        
 	stage("Unit Testing") {
             steps {
                 sh "..............."
