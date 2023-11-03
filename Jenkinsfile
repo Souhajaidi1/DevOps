@@ -19,7 +19,7 @@ pipeline {
         }
 	
 
-	stage('Setup MySQL Connection') {
+	stage('MySQL Connexion') {
                 steps {
                         script {
                         // Use MySQL client to connect to the running MySQL container
@@ -29,7 +29,7 @@ pipeline {
                 }
         }
 
-        stage("SRC Analysis Testing") {
+        stage("SonarQube") {
             steps {
                 sh "mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar"
             }
@@ -43,7 +43,7 @@ pipeline {
         }
 
 
-	stage('push in dockerhub') {
+	stage('Push in dockerhub') {
             steps {
                 sh "docker login -u malakhachicha1998 -p Malak02061998"
                 sh "docker push malakhachicha1998/devops:skistation"
@@ -52,7 +52,7 @@ pipeline {
 
 
 	
-	stage('run docker compose') {
+	stage('Run docker compose') {
             steps {
                 sh "docker compose up "
             }
