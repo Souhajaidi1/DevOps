@@ -12,7 +12,7 @@ services:
       - /home/mysql/data:/var/lib/mysql
 
   spring_app:
-    image: skistationproject
+    image: malakhachicha1998/devops:skistation
     container_name: spring_app
     restart: on-failure
     ports:
