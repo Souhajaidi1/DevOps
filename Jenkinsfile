@@ -38,7 +38,7 @@ pipeline {
 
         stage("Build Docker image") {
             steps {
-                sh "docker build -t skistation ."
+                sh "docker build -t malakhachicha1998/devops:skistation ."
             }
         }
 
@@ -46,7 +46,7 @@ pipeline {
 	stage('push in dockerhub') {
             steps {
                 sh "docker login -u malakhachicha1998 -p Malak02061998"
-                sh "docker push HachichaMalak/skistation:1.0.0"
+                sh "docker push malakhachicha1998/devops:skistation"
             }
         }
 
