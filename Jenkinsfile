@@ -23,7 +23,8 @@ pipeline {
                 steps {
                         script {
                         // Use MySQL client to connect to the running MySQL container
-                        sh 'mysql -h 172.18.0.2 -u root -e "USE SkiStationDB;"'
+                        
+			sh 'docker run --name mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:8 -v /var/lib/mysql'
                         }
                 }
         }
