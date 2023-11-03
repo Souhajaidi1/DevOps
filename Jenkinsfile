@@ -12,7 +12,7 @@ pipeline {
             }
         }
 
-        stage("Build Artifact") {
+        stage("Build") {
             steps {
                 sh "mvn clean compile"
             }
