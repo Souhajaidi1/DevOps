@@ -50,7 +50,7 @@ pipeline {
 
         stage("Deploy Dokcer Image to private registry") {
             steps {
-                 sh "sed -i 's|image: nom_image:tag|image: nom_utilisateur/nom_image:tag|g' docker-compose.yml"
+                 sh "sed -i 's|SkiStationProject: SkiStationProject:latest|SkiStationProject: souhajaidi/SkiStationProject:latest|g' docker-compose.yml"
     
             }
         }
