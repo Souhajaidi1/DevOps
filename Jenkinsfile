@@ -36,9 +36,17 @@ pipeline {
         
         stage("Build Docker image") {
             steps {
-                sh "..............."
+                sh "docker build -t aminesnoussi/devops:skistation ."
             }
         }
+
+         stage('Push in dockerhub') {
+            steps {
+                sh "docker login -u aminesnoussi -p AliSnoussi1956."
+                sh "docker push aminesnoussi/devops:skistation"
+            }
+        }
+
 
         stage("Deploy Artifact to private registry") {
             steps {
