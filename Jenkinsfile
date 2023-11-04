@@ -36,21 +36,21 @@ pipeline {
 
         stage("Build Docker image") {
             steps {
-                sh "docker build -t souhajaidi/SkiStationProject:latest ."
+                sh "docker build -t souhajaidi/skistationproject:latest ."
             }
         }
 
         stage("Deploy Artifact to private registry") {
             steps {
         sh "docker login -u souhajaidi -p souha123+ registry_url"
-        sh "docker tag SkiStationProject:latest souhajaidi/SkiStationProject:latest"
-        sh "docker push souhajaidi/SkiStationProject:latest"
+        sh "docker tag skistationproject:latest souhajaidi/skistationproject:latest"
+        sh "docker push souhajaidi/skistationproject:latest"
             }
         }
 
         stage("Deploy Dokcer Image to private registry") {
             steps {
-                 sh "sed -i 's|SkiStationProject: SkiStationProject:latest|SkiStationProject: souhajaidi/SkiStationProject:latest|g' docker-compose.yml"
+                 sh "sed -i 's|skistationproject: skistationproject:latest|skistationproject: souhajaidi/skistationproject:latest|g' docker-compose.yml"
     
             }
         }
