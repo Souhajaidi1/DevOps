@@ -44,7 +44,7 @@ pipeline {
             steps {
         sh "docker login -u souhajaidi -p souha123+ registry_url"
         sh "docker tag SkiStationProject:latest souhajaidi/SkiStationProject:latest"
-        sh "docker push souhajaidi/SkiStationProject:latest
+        sh "docker push souhajaidi/SkiStationProject:latest"
             }
         }
 
