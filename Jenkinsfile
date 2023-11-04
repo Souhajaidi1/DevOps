@@ -22,7 +22,7 @@ pipeline {
                         script {
                         // Use MySQL client to connect to the running MySQL container
 
-                        sh 'docker run -d --name my-mysql-container --network devops -e MYSQL_ALLOW_EMPTY_PASSWORD=true -e MYSQL_DATABASE=SkiStationDB mysql:latest'
+                         sh 'mysql -h 172.18.0.2 -u root -e "USE SkiStationDB;"'
                         }
                 }
         }
