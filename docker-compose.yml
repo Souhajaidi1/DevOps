@@ -1,0 +1,21 @@
+version: "3.9"
+
+services:
+  mysqldb:
+    container_name: my-mysql
+    image: mysql:latest
+    restart: unless-stopped
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=SkiStationDB
+    volumes:
+      - /home/mysql/data:/var/lib/mysql
+
+  spring_app:
+    image: souhajaidi/skistationproject:latest
+    container_name: spring_app
+    restart: on-failure
+    ports:
+      - 9090:9090
+    depends_on:
+      - mysqldb
