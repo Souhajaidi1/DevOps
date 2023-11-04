@@ -52,9 +52,9 @@ pipeline {
 
 
 	
-	stage('Run docker compose') {
+	stage('Nexus') {
             steps {
-                sh "docker compose up "
+                sh "mvn deploy -DskipTests"
             }
         }
 
@@ -62,7 +62,7 @@ pipeline {
 	        
 	stage("Unit Testing") {
             steps {
-                sh "..............."
+                sh ".................."
             }
         }
 
