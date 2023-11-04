@@ -14,7 +14,7 @@ pipeline {
        
         stage("Build") {
             steps {
-                sh "sudo mvn clean install"
+                sh "mvn clean install"
             }
         }
 
