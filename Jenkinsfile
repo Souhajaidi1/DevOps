@@ -34,20 +34,20 @@ pipeline {
                 sh "docker build -t ousshmaied/devops:skistation ."
             }
         }
+      
 
-        stage("Deploy Artifact to private registry") {
+        stage("push in dockerhub") {
             steps {
                  sh "docker login -u ousshmaied -p basket1234"
                 sh "docker push ousshmaied/devops:skistation"
             }
         }
 
-        stage("Deploy Dokcer Image to private registry") {
+stage("Docker compose") {
             steps {
-                sh "..............."
+                sh "docker compose up -d"
             }
         }
-    }
 
     post {
         always {
