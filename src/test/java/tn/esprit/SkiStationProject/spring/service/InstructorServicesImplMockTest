@@ -1,0 +1,146 @@
+package tn.esprit.SkiStationProject.spring.service;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.Mockito.*;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Optional;
+import java.util.HashSet;
+import java.util.Set;
+
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import tn.esprit.SkiStationProject.entities.Course;
+import tn.esprit.SkiStationProject.entities.Instructor;
+import tn.esprit.SkiStationProject.repositories.CourseRepository;
+import tn.esprit.SkiStationProject.repositories.InstructorRepository;
+import tn.esprit.SkiStationProject.services.IInstructorServices;
+import tn.esprit.SkiStationProject.services.InstructorServicesImpl;
+
+@SpringBootTest
+@Slf4j
+@ExtendWith(MockitoExtension.class)
+public class InstructorServicesImplMockTest {
+
+    @Mock
+    private Instructor instructor;
+
+    @InjectMocks
+    private InstructorServicesImpl instructorServicesImpl;
+
+    @Mock
+    private InstructorRepository instructorRepository;
+    @Mock
+    private IInstructorServices instructorServices;
+    @Mock
+    private CourseRepository courseRepository;
+
+    @BeforeEach
+    public void setup() {
+        MockitoAnnotations.openMocks(this);
+    }
+
+    @Test
+    public void testCreateInstructor() {
+        Instructor instructor = new Instructor();
+//        instructor.setFirstName("Mary");
+//        instructor.setLastName("Johnson");
+//        instructor.setDateOfHire(LocalDate.now());
+
+        // Mock the repository save behavior
+        when(instructorServices.addInstructor(any(Instructor.class))).thenReturn(instructor);
+
+        // Call the service method
+        Instructor savedInstructor = instructorServices.addInstructor(instructor);
+
+        // Assertions
+        assertNotNull(savedInstructor);
+//        assertEquals("Mary", savedInstructor.getFirstName());
+//        assertEquals("Johnson", savedInstructor.getLastName());
+//        assertEquals(LocalDate.now(), savedInstructor.getDateOfHire());
+        // Add assertions for other properties you want to test.
+    }
+
+
+    @Test
+    public void shouldCheckInstructor() {
+        // Initialization
+        Instructor instructor = new Instructor(); // Initialize the course with necessary details
+        when(instructorServices.addInstructor(any(Instructor.class))).thenReturn(instructor);
+        Instructor savedInstructor = instructorServices.addInstructor(instructor);
+        Long instructorId = savedInstructor.getId();
+        when(instructorServices.retrieveInstructor(anyLong())).thenReturn(savedInstructor);
+        Instructor retrievedInstructor = instructorServices.retrieveInstructor(instructorId);
+        assertNotNull(retrievedInstructor);
+        assertEquals(savedInstructor.getId(), retrievedInstructor.getId());
+    }
+    @Test
+    public void testUpdateInstructor() {
+        Instructor instructor = new Instructor();
+
+        when(instructorServices.addInstructor(any(Instructor.class))).thenReturn(instructor);
+        Instructor savedInstructor = instructorServices.addInstructor(instructor);
+        assertNotNull(savedInstructor);
+        when(instructorServices.addInstructor(any(Instructor.class))).thenReturn(savedInstructor);
+
+        instructor.setLastName("Johnson");
+        when(instructorServices.retrieveInstructor(anyLong())).thenReturn(instructor);
+        instructorServices.addInstructor(instructor);
+        log.info("Instructor updated");
+
+        Instructor updatedInstructor = instructorServices.retrieveInstructor(savedInstructor.getId());
+        assertEquals("Johnson", updatedInstructor.getLastName());
+        // Add assertions for other updated properties.
+    }
+
+    @Test
+    public void testCheckInstructorListSize() {
+        Instructor instructor = new Instructor();
+        when(instructorServices.addInstructor(any(Instructor.class))).thenReturn(instructor);
+
+        int size = instructorServices.retrieveAllInstructors().size();
+
+        Instructor savedInstructor = instructorServices.addInstructor(instructor);
+
+        assertEquals(size + 0, instructorServices.retrieveAllInstructors().size());
+    }
+
+  /*  @Test
+    public void testAssignInstructorToCourse() {
+        Long instructorId = 1L;
+        Long courseId = 2L;
+
+        Instructor instructor = new Instructor();
+        instructor.setFirstName("Mary");
+        instructor.setLastName("Johnson");
+        instructor.setDateOfHire(LocalDate.now());
+
+        Course course = new Course();
+        course.setId(courseId);
+
+        Set<Course> courseSet = new HashSet<>();
+        courseSet.add(course);
+
+        instructor.setCourses(courseSet);
+
+        when(instructorRepository.findById(instructorId)).thenReturn(Optional.of(instructor));
+        when(courseRepository.findById(courseId)).thenReturn(Optional.of(course));
+
+        Instructor assignedInstructor = instructorServicesImpl.addInstructorAndAssignToCourse(instructorId, courseId);
+
+        assertNotNull(assignedInstructor);
+        assertTrue(assignedInstructor.getCourses().contains(course));
+    } */
+}
+

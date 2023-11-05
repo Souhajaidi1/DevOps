@@ -1,0 +1,137 @@
+package tn.esprit.SkiStationProject.spring.service;
+
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import static org.junit.jupiter.api.Assertions.*;
+import tn.esprit.SkiStationProject.entities.Course;
+import tn.esprit.SkiStationProject.entities.Instructor;
+import tn.esprit.SkiStationProject.services.IInstructorServices;
+
+import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
+
+@SpringBootTest
+@Slf4j
+public class InstructorServicesImplTest {
+
+    @Autowired
+    private IInstructorServices instructorServices;
+
+    @Test
+    public void shouldAddInstructor() {
+        Instructor instructor = new Instructor();
+        instructor.setFirstName("John");
+        instructor.setLastName("Doe");
+        instructor.setDateOfHire(LocalDate.now());
+        // Add other necessary properties
+
+        Instructor savedInstructor = instructorServices.addInstructor(instructor);
+
+        assertNotNull(savedInstructor);
+        assertEquals("John", savedInstructor.getFirstName());
+        assertEquals("Doe", savedInstructor.getLastName());
+        assertEquals(LocalDate.now(), savedInstructor.getDateOfHire());
+        // Add assertions for other properties you want to test.
+    }
+
+    @Test
+    public void shouldUpdateInstructor() {
+        Instructor instructor = new Instructor();
+        instructor.setFirstName("Alice");
+        instructor.setLastName("Smith");
+        instructor.setDateOfHire(LocalDate.now());
+        // Add other necessary properties
+
+        Instructor savedInstructor = instructorServices.addInstructor(instructor);
+
+        assertNotNull(savedInstructor);
+
+        instructor.setLastName("Johnson");
+        instructorServices.updateInstructor(instructor);
+        log.info("Instructor updated");
+
+        Instructor updatedInstructor = instructorServices.retrieveInstructor(savedInstructor.getId());
+        assertEquals("Johnson", updatedInstructor.getLastName());
+
+        log.info("Cleanup done");
+    }
+
+    @Test
+    public void shouldCheckInstructorListSize() {
+        int size = instructorServices.retrieveAllInstructors().size();
+        Instructor instructor = new Instructor();
+        instructor.setFirstName("Mary");
+        instructor.setLastName("Johnson");
+        instructor.setDateOfHire(LocalDate.now());
+        // Add other necessary properties
+
+        Instructor savedInstructor = instructorServices.addInstructor(instructor);
+
+        int newSize = instructorServices.retrieveAllInstructors().size();
+        assertEquals(size + 1, newSize);
+    }
+
+    @Test
+    public void shouldRetrieveInstructor() {
+        Instructor instructor = new Instructor();
+        instructor.setFirstName("Alice");
+        instructor.setLastName("Smith");
+        instructor.setDateOfHire(LocalDate.now());
+        // Add other necessary properties
+
+        Instructor savedInstructor = instructorServices.addInstructor(instructor);
+
+        assertNotNull(savedInstructor);
+
+        Instructor retrievedInstructor = instructorServices.retrieveInstructor(savedInstructor.getId());
+
+        assertNotNull(retrievedInstructor);
+        assertEquals(savedInstructor.getId(), retrievedInstructor.getId());
+
+        log.info("Instructor retrieved");
+
+        // Cleanup (optional)
+        // If you want to remove the added instructor, you can do it here.
+        // instructorServices.deleteInstructor(savedInstructor.getId());
+        // log.info("Cleanup done");
+    }
+
+  /*  @Test
+    public void shouldAddInstructorAndAssignToCourse() {
+        // Create a Course
+        Course course = new Course();
+        course.setId(1L);
+
+        // Create an Instructor
+        Instructor instructor = new Instructor();
+        instructor.setFirstName("Mary");
+        instructor.setLastName("Johnson");
+        instructor.setDateOfHire(LocalDate.now());
+
+        // Assign the instructor to the course
+        Set<Course> courseSet = new HashSet<>();
+        courseSet.add(course);
+        instructor.setCourses(courseSet);
+
+        // Add other necessary properties for the instructor
+
+        // Call the method to add the instructor and assign them to the course
+        Instructor savedInstructor = instructorServices.addInstructorAndAssignToCourse(instructor, 1L);
+
+        // Retrieve the updated instructor
+        Instructor retrievedInstructor = instructorServices.retrieveInstructor(savedInstructor.getId());
+
+        assertNotNull(retrievedInstructor);
+        assertEquals(1, retrievedInstructor.getCourses().size());
+        assertTrue(retrievedInstructor.getCourses().contains(course));
+
+        // Cleanup (optional)
+        // If you want to remove the added instructor and course, you can do it here.
+        // instructorServices.deleteInstructor(savedInstructor.getId());
+        // log.info("Cleanup done");
+    } */
+}
+
