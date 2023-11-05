@@ -18,7 +18,6 @@ pipeline {
             }
         }
 	
-
 	
         stage("SonarQube") {
             steps {
@@ -51,6 +50,20 @@ pipeline {
 	stage('Nexus') {
             steps {
                 sh "mvn clean compile -DskipTests"
+            }
+        }
+	
+
+	stage('Junit Mockito') {
+            steps {
+                sh ".............."
+            }
+        }
+	
+
+	stage('Grafana Prometheus') {
+            steps {
+                sh ".............."
             }
         }
 
