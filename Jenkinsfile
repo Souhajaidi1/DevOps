@@ -26,16 +26,10 @@ pipeline {
                         }
                 }
         }
-
-        stage("Sonar") {
-            steps {
-                bat "mvn sonar:sonar"
-            }
-        }
         
         stage("SRC Analysis Testing") {
             steps {
-                bat "mvn sonar:sonar"
+                sh "mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar"
             }
         }
         
