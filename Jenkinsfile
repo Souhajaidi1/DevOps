@@ -31,13 +31,14 @@ pipeline {
 
         stage("Build Docker image") {
             steps {
-                sh "..............."
+                sh "docker build -t ousshmaied/devops:skistation ."
             }
         }
 
         stage("Deploy Artifact to private registry") {
             steps {
-                sh "..............."
+                 sh "docker login -u ousshmaied -p basket1234"
+                sh "docker push ousshmaied/devops:skistation"
             }
         }
 
