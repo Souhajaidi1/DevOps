@@ -33,9 +33,17 @@ pipeline {
             }
         }
         
-        stage("Build Docker image") {
+        
+      stage("Build Docker image") {
             steps {
-                sh "..............."
+                sh "docker build -t anischennaoui/devops:skistation ."
+            }
+        }
+
+         stage('Push in dockerhub') {
+            steps {
+                sh "docker login -u anischennaoui -p ac53550812"
+                sh "docker push anischennaoui/devops:skistation"
             }
         }
 
