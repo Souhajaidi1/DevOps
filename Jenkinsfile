@@ -27,12 +27,6 @@ pipeline {
         }
 	
 
-	stage('Nexus') {
-            steps {
-                sh "mvn deploy -DskipTests"
-            }
-        }
-
         stage("Build Docker image") {
             steps {
                 sh "docker build -t malakhachicha1998/devops:skistation ."
@@ -54,6 +48,11 @@ pipeline {
             }
         }
 
+	stage('Nexus') {
+            steps {
+                sh "mvn deploy -DskipTests"
+            }
+        }
 
 }
 
