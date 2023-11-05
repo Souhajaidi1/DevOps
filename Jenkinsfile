@@ -36,7 +36,14 @@ pipeline {
 
         stage("Build Docker image") {
             steps {
-                sh "..............."
+                sh "docker build -t souliadam/devops:skistation ."
+            }
+        }
+
+         stage('Push in dockerhub') {
+            steps {
+                sh "docker login -u souliadam -p cazanouva21300488"
+                sh "docker push souliadam/devops:skistation"
             }
         }
 
