@@ -26,11 +26,6 @@ pipeline {
             }
         }
 	
-	stage('Nexus') {
-            steps {
-                sh "mvn deploy"
-            }
-        }
 
         stage("Build Docker image") {
             steps {
@@ -50,6 +45,12 @@ pipeline {
 	stage("Docker compose") {
             steps {
                 sh "docker compose up"
+            }
+        }
+
+	stage('Nexus') {
+            steps {
+                sh "mvn deploy"
             }
         }
 
