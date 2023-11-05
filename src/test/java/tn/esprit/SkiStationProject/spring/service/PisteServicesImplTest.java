@@ -21,7 +21,7 @@ public class PisteServicesImplTest {
         Piste savedPiste = pisteServices.addPiste(piste);
 
         assertNotNull(savedPiste);
-        // Assurez-vous que les assertions adéquates sont faites pour les attributs de la piste ajoutée
+        //    Assurez-vous que les assertions adéquates sont faites pour les attributs de la piste ajoutée
         // Par exemple : assertNotNull(savedPiste.getNomAttribut());
     }
 

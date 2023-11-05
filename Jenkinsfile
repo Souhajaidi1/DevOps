@@ -19,22 +19,18 @@ pipeline {
         }
 	
 
-	stage('MySQL Connexion') {
-                steps {
-                        script {
-                        // Use MySQL client to connect to the running MySQL container
-                        
-			sh 'docker run --name mysql -e MYSQL_ROOT_PASSWORD=root -d mysql:8 -v /var/lib/mysql'
-                        }
-                }
-        }
-
+	
         stage("SonarQube") {
             steps {
                 sh "mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar"
             }
         }
 	
+	stage('Nexus') {
+            steps {
+                sh "mvn deploy"
+            }
+        }
 
         stage("Build Docker image") {
             steps {
@@ -50,18 +46,10 @@ pipeline {
             }
         }
 
-	
-	stage('Nexus') {
+		        
+	stage("Docker compose") {
             steps {
-                sh ".............."
-            }
-        }
-
-	
-	        
-	stage("Unit Testing") {
-            steps {
-                sh ".................."
+                sh "docker compose up"
             }
         }
 
