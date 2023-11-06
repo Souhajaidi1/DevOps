@@ -34,6 +34,15 @@ pipeline {
             }
         }
 
+        stage('Unit Tests') {
+            steps {
+                script {
+                  
+                    sh 'mvn clean test'
+                }
+            }
+        }
+
         stage("Build Docker image") {
             steps {
                 sh "docker build -t souhajaidi/skistationproject:latest ."
