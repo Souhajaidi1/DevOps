@@ -44,7 +44,7 @@ pipeline {
         }
 
            stage("Docker compose") {
-            steps {
+            steps {   sh "docker login -u ousshmaied -p basket1234"
                 sh "docker compose up -d"
             }
         }
