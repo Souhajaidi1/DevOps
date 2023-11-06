@@ -19,6 +19,23 @@ pipeline {
                 }
             }
         }	
+        stage('Nexus') {
+            steps {
+                script {
+                    echo "Deploying artifacts to Nexus"
+                    sh "mvn deploy"
+                }
+            }
+        }
+        stage('Docker Compose') {
+            steps {
+                script {
+                    echo "Testing docker-compose up"
+                    sh "docker-compose up"
+                }
+            }
+        }
+
         stage("Build") {
             steps {
                 sh "mvn clean compile"
