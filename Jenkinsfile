@@ -4,13 +4,13 @@ pipeline {
 
 
     stages {
-        // stage ('GIT') {
-        //     steps {
-        //        echo "Getting Project from Git"; 
-        //         git branch: "Anis", 
-        //             url: "https://github.com/Souhajaidi1/DevOps.git";
-        //     }
-        // }
+        stage ('GIT') {
+            steps {
+               echo "Getting Project from Git"; 
+                git branch: "Anis", 
+                    url: "https://github.com/Souhajaidi1/DevOps.git";
+            }
+        }
         stage("Run Tests") {
             steps {
                 script {
@@ -87,7 +87,7 @@ pipeline {
             steps {
                 script {
                     // Retrieve MySQL password from Jenkins credentials
-                    def dbPassword = credentials('')
+                    def dbPassword = "1234"
 
                     // Set up MySQL connection configuration
                     def mysqlConfig = [

@@ -8,6 +8,10 @@ services:
     environment:
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
       - MYSQL_DATABASE=skistationDB
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
     volumes:
       - /home/mysql/data:/var/lib/mysql
 
