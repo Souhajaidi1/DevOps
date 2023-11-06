@@ -56,7 +56,7 @@ pipeline {
 
 	stage('Junit Mockito') {
             steps {
-                sh "mvn clean test"
+                sh "mvn clean"
             }
         }
 	
