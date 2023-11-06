@@ -14,7 +14,7 @@ pipeline {
 
         stage("Build") {
             steps {
-                sh "mvn clean compile -DskipTests"
+                sh "mvn clean install -DskipTests"
             }
         }
 	
@@ -56,14 +56,22 @@ pipeline {
 
 	stage('Junit Mockito') {
             steps {
-                sh "mvn clean"
+                sh "mvn clean test"
             }
         }
 	
 
 	stage('Grafana Prometheus') {
             steps {
-                sh ".............."
+                // Commandes pour démarrer Grafana et Prometheus
+        	sh "docker run -d --name=grafana -p 3000:3000 grafana/grafana"
+        	sh "docker run -d --name=prometheus -p 9090:9090 prom/prometheus"
+
+        	// Configurer Prometheus avec des cibles de scraping
+        	sh "curl -X POST -H 'Content-Type: application/json' -d '{\"targets\":[\"<target_IP>:<target_port>\"]}' http://192.168.33.10:9090/api/v1/targets"
+
+        	// Configurer Grafana pour se connecter à Prometheus
+        	sh "curl -X POST -u admin:admin http://192.168.33.10:3000/api/datasources -H 'Content-Type: application/json' --data-binary '{\"name\":\"Prometheus\",\"type\":\"prometheus		\",\"url\":\"http://192.168.33.10:9090\",\"access\":\"proxy\",\"basicAuth\":false}'"
             }
         }
 
