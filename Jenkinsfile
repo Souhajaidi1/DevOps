@@ -51,7 +51,7 @@ pipeline {
 
         stage("Deploy Artifact to private registry") {
             steps {
-        sh "docker login -u souhajaidi -p souha123+ registry_url"
+        sh "docker login -u souhajaidi --password-stdin https://hub.docker.com/u/souhajaidi "
         sh "docker tag skistationproject:latest souhajaidi/skistationproject:latest"
         sh "docker push souhajaidi/skistationproject:latest"
             }
