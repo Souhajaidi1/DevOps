@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   mysqldb:
-    container_name: my-mysql-container
+    container_name: my-mysql
     image: mysql:latest
     restart: unless-stopped
     environment:
@@ -12,7 +12,7 @@ services:
       - /home/mysql/data:/var/lib/mysql
 
   spring_app:
-    image: skistationproject
+    image: anischennaoui/devops:skistation
     container_name: skistationproject
     restart: on-failure
     ports:

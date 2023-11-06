@@ -11,7 +11,14 @@ pipeline {
                     url: "https://github.com/Souhajaidi1/DevOps.git";
             }
         }
-       
+        stage("Run Tests") {
+            steps {
+                script {
+                    echo "Running unit tests"
+                    sh "mvn test"
+                }
+            }
+        }	
         stage("Build") {
             steps {
                 sh "mvn clean compile"
