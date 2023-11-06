@@ -23,7 +23,8 @@ pipeline {
                 }
             }
         }
-          stage("SRC Analysis Testing") {
+
+        stage("SRC Analysis Testing") {
             steps {
                 sh "mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar"
             }
@@ -34,32 +35,32 @@ pipeline {
                 sh "docker build -t ousshmaied/devops:skistation ."
             }
         }
-      
 
         stage("push in dockerhub") {
             steps {
-                 sh "docker login -u ousshmaied -p basket1234"
+                sh "docker login -u ousshmaied -p basket1234"
                 sh "docker push ousshmaied/devops:skistation"
             }
         }
 
-           stage("Docker compose") {
-            steps {   sh "docker login -u ousshmaied -p basket1234"
+        stage("Docker compose") {
+            steps {
+                sh "docker login -u ousshmaied -p basket1234"
                 sh "docker compose up -d"
             }
         }
-     }}
-            stage("Deploy to Nexus") {
+        
+        stage("Deploy to Nexus") {
             steps {
-                
                 sh "mvn deploy -DskipTests=true"
             }
         }
+    }
+
     post {
         always {
             cleanWs()
         }
-    
     }
 }
 
