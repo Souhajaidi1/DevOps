@@ -48,6 +48,13 @@ pipeline {
                 sh "docker build -t souhajaidi/skistationproject:latest ."
             }
         }
+         
+       stage('Push in dockerhub') {
+            steps {
+                sh "docker login -u souhajaidi -p souha123+"
+                sh "docker push souhajaidi/skistationproject"
+            }
+        }
 
         stage("Deploy Artifact to private registry") {
             steps {
