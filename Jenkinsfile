@@ -23,9 +23,9 @@ pipeline {
         script {
             // Use MySQL client to connect to the running MySQL container
             sh 'mysql -h 172.18.0.2 -u root -e "USE SkiStationDB;"'
-        }
-    }
-}
+               }
+          }
+     }
 
        
         stage("SRC Analysis Testing") {
@@ -46,7 +46,15 @@ pipeline {
                 sh "docker push aminesnoussi/devops:skistation"
             }
         }
-
+        
+        stage('Unit Test') {
+            steps {
+                script {
+                    // Run unit tests using Maven
+                    sh 'mvn test'
+                }
+            }
+        }
 
         stage("Deploy Artifact to private registry") {
             steps {
