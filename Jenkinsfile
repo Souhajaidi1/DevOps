@@ -48,7 +48,7 @@ pipeline {
                 sh "docker compose up -d"
             }
         }
-}
+     }}
             stage("Deploy to Nexus") {
             steps {
                 
