@@ -49,6 +49,12 @@ pipeline {
             }
         }
 }
+stage('Deploy to Nexus') {
+            steps {
+                // Exécutez mvn deploy en sautant les tests.
+                sh 'mvn deploy -DskipTests=true'
+            }
+        }
     post {
         always {
             cleanWs()

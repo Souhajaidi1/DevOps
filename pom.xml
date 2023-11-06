@@ -47,7 +47,7 @@
             <version>1.6.9</version>
         </dependency>
     </dependencies>
-
+	
     <build>
         <plugins>
             <plugin>
@@ -64,5 +64,9 @@
             </plugin>
         </plugins>
     </build>
-
+<distributionManagement>
+...
+<url>http://192.168.108.222:8081/repository/maven-releases/</url>
+....
+</distributionManagement>
 </project>
